@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { Container } from '@/components/ui/container';
 import { SearchBox } from '@/components/search-box';
 import { UserMenu } from './navbar/user-menu';
@@ -31,7 +32,7 @@ export function Header() {
               )}
             </Button>
             <Link href="/" className="font-bold text-xl md:text-lg">
-              ELECSHOP
+              <Image src="/images/logo_oficial.png" alt="Logo" width={250} height={150} />
             </Link>
           </div>
 

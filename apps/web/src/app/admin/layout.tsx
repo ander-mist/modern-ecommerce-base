@@ -3,6 +3,7 @@
 import { useUser } from '@/modules/auth/hooks/use-user';
 import { redirect } from 'next/navigation';
 import { Container } from '@/components/ui/container';
+import { Breadcrumbs } from '@/components/breadcrumbs';
 import { Loader2 } from 'lucide-react';
 
 export default function AdminLayout({
@@ -18,7 +19,7 @@ export default function AdminLayout({
         <div className="h-[calc(100vh-5rem)] flex items-center justify-center space-y-6">
           <div className="flex items-center justify-center gap-2">
             <Loader2 className="h-6 w-6 animate-spin" />
-            <p className="text-lg">Loading users...</p>
+            <p className="text-lg">Loading...</p>
           </div>
         </div>
       </Container>
@@ -29,5 +30,12 @@ export default function AdminLayout({
     redirect('/login');
   }
 
-  return children;
+  return (
+    <>
+      <Container>
+        <Breadcrumbs />
+      </Container>
+      {children}
+    </>
+  );
 }

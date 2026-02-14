@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { satoshi } from './fonts';
 import './globals.css';
 import { Header } from '@/components/header';
+import { Footer } from '@/components/footer';
 import { Providers } from './providers';
 import { Toaster } from '@/components/ui/toaster';
 import { AuthProvider } from '@/components/auth-provider';
@@ -10,8 +11,8 @@ import { CheckoutProvider } from '@/modules/checkout/context/checkout-context';
 import { ThemeProvider } from '@/components/theme-provider';
 
 export const metadata: Metadata = {
-  title: 'Elecshop',
-  description: 'Modern eCommerce platform',
+  title: 'Delua store',
+  description: 'Modern eCommerce platform for makeup products',
 };
 
 export default function RootLayout({
@@ -36,6 +37,7 @@ export default function RootLayout({
                 <CheckoutProvider>
                   <Header />
                   <main className="flex-1">{children}</main>
+                  <Footer />
                   <Toaster />
                 </CheckoutProvider>
               </CartProvider>

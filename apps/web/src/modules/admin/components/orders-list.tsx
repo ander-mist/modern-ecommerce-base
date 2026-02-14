@@ -64,7 +64,7 @@ export function OrdersList({ orders }: OrdersListProps) {
           {orders.map(order => (
             <TableRow key={order._id}>
               <TableCell className="font-medium">#{order._id}</TableCell>
-              <TableCell>{order.user}</TableCell>
+              <TableCell>{order.user?.name}</TableCell>
               <TableCell>
                 {new Date(order.createdAt).toLocaleDateString()}
               </TableCell>

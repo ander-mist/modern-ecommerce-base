@@ -14,8 +14,13 @@ import { getVisiblePages } from '@/lib/utils';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 
+
+// interface AdminProductsPageProps {
+//   searchParams: { page?: string };
+// }
+
 interface AdminProductsPageProps {
-  searchParams: { page?: string };
+  searchParams: any;
 }
 
 export default async function AdminProductsPage({
