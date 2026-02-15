@@ -1,6 +1,5 @@
 import {
     Palette,
-    Heart,
     Eye,
     Sparkles,
     Droplets,
@@ -22,12 +21,12 @@ import {
 export interface CategoryConfig {
     slug: string;
     label: string;
-    icon: LucideIcon;
+    icon: LucideIcon | string;
 }
 
 export const CATEGORIES: CategoryConfig[] = [
     { slug: 'Base', label: 'Base', icon: Droplets },
-    { slug: 'Batom', label: 'Batom', icon: Heart },
+    { slug: 'Batom', label: 'Batom', icon: '/images/lipstick-makeup.svg' },
     { slug: 'Sombra', label: 'Sombra', icon: Eye },
     { slug: 'Máscara de Cílios', label: 'Máscara', icon: Sparkles },
     { slug: 'Corretivo', label: 'Corretivo', icon: CircleDot },

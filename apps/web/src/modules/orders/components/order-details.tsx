@@ -19,12 +19,12 @@ export function OrderDetails({ order }: OrderDetailsProps) {
   return (
     <div className="space-y-8">
       <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-bold">Order #{order._id}</h1>
+        <h1 className="text-3xl font-bold">Pedido #{order._id}</h1>
         <Badge
           variant={order.isPaid ? 'default' : 'destructive'}
           className="text-sm"
         >
-          {order.isPaid ? 'Paid' : 'Pending Payment'}
+          {order.isPaid ? 'Pago' : 'Pagamento Pendente'}
         </Badge>
       </div>
 
@@ -32,10 +32,10 @@ export function OrderDetails({ order }: OrderDetailsProps) {
         <div className="col-span-8 space-y-6">
           {/* Shipping Info */}
           <Card className="p-6">
-            <h2 className="text-xl font-semibold mb-4">Shipping</h2>
+            <h2 className="text-xl font-semibold mb-4">Entrega</h2>
             <div className="space-y-2">
               <p>
-                <span className="font-medium">Address: </span>
+                <span className="font-medium">Endereço: </span>
                 {order.shippingDetails.address}, {order.shippingDetails.city},{' '}
                 {order.shippingDetails.postalCode},{' '}
                 {order.shippingDetails.country}
@@ -44,14 +44,14 @@ export function OrderDetails({ order }: OrderDetailsProps) {
                 <Alert variant="default" className="mt-4">
                   <CheckCircle2 className="h-4 w-4" />
                   <AlertDescription>
-                    Delivered on{' '}
-                    {new Date(order.deliveredAt!).toLocaleDateString()}
+                    Entregue em{' '}
+                    {new Date(order.deliveredAt!).toLocaleDateString('pt-BR')}
                   </AlertDescription>
                 </Alert>
               ) : (
                 <Alert variant="destructive" className="mt-4">
                   <XCircle className="h-4 w-4" />
-                  <AlertDescription>Not Delivered</AlertDescription>
+                  <AlertDescription>Não Entregue</AlertDescription>
                 </Alert>
               )}
             </div>
@@ -59,23 +59,23 @@ export function OrderDetails({ order }: OrderDetailsProps) {
 
           {/* Payment Info */}
           <Card className="p-6">
-            <h2 className="text-xl font-semibold mb-4">Payment</h2>
+            <h2 className="text-xl font-semibold mb-4">Pagamento</h2>
             <div className="space-y-2">
               <p>
-                <span className="font-medium">Method: </span>
+                <span className="font-medium">Método: </span>
                 {order.paymentMethod}
               </p>
               {order.isPaid ? (
                 <Alert variant="default" className="mt-4">
                   <CheckCircle2 className="h-4 w-4" />
                   <AlertDescription>
-                    Paid on {new Date(order.paidAt!).toLocaleDateString()}
+                    Pago em {new Date(order.paidAt!).toLocaleDateString('pt-BR')}
                   </AlertDescription>
                 </Alert>
               ) : (
                 <Alert variant="destructive" className="mt-4">
                   <XCircle className="h-4 w-4" />
-                  <AlertDescription>Not Paid</AlertDescription>
+                  <AlertDescription>Não Pago</AlertDescription>
                 </Alert>
               )}
             </div>
@@ -83,7 +83,7 @@ export function OrderDetails({ order }: OrderDetailsProps) {
 
           {/* Order Items */}
           <Card className="p-6">
-            <h2 className="text-xl font-semibold mb-4">Order Items</h2>
+            <h2 className="text-xl font-semibold mb-4">Itens do Pedido</h2>
             <div className="space-y-4">
               {order.orderItems.map(item => (
                 <div
@@ -106,7 +106,7 @@ export function OrderDetails({ order }: OrderDetailsProps) {
                       {item.name}
                     </Link>
                     <p className="text-sm text-muted-foreground">
-                      {item.qty} x ${item.price.toFixed(2)} = $
+                      {item.qty} x R${item.price.toFixed(2)} = R$
                       {(item.qty * item.price).toFixed(2)}
                     </p>
                   </div>
@@ -119,28 +119,28 @@ export function OrderDetails({ order }: OrderDetailsProps) {
         {/* Order Summary */}
         <div className="col-span-4">
           <Card className="p-6">
-            <h2 className="text-xl font-semibold mb-6">Order Summary</h2>
+            <h2 className="text-xl font-semibold mb-6">Resumo do Pedido</h2>
             <div className="space-y-4">
               <div className="flex justify-between">
-                <span className="text-muted-foreground">Items</span>
-                <span>${order.itemsPrice.toFixed(2)}</span>
+                <span className="text-muted-foreground">Itens</span>
+                <span>R${order.itemsPrice.toFixed(2)}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-muted-foreground">Shipping</span>
+                <span className="text-muted-foreground">Frete</span>
                 <span>
                   {order.shippingPrice === 0
-                    ? 'Free'
-                    : `$${order.shippingPrice.toFixed(2)}`}
+                    ? 'Grátis'
+                    : `R$${order.shippingPrice.toFixed(2)}`}
                 </span>
               </div>
               <div className="flex justify-between">
-                <span className="text-muted-foreground">Tax</span>
-                <span>${order.taxPrice.toFixed(2)}</span>
+                <span className="text-muted-foreground">Impostos</span>
+                <span>R${order.taxPrice.toFixed(2)}</span>
               </div>
               <Separator />
               <div className="flex justify-between font-medium">
                 <span>Total</span>
-                <span>${order.totalPrice.toFixed(2)}</span>
+                <span>R${order.totalPrice.toFixed(2)}</span>
               </div>
 
               {!order.isPaid &&

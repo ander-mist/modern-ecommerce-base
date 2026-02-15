@@ -32,7 +32,7 @@ export function Header() {
               )}
             </Button>
             <Link href="/" className="font-bold text-xl md:text-lg">
-              <Image src="/images/logo_oficial.png" alt="Logo" width={250} height={150} />
+              <Image src="/images/logo_oficial_2.png" alt="Logo" width={250} height={150} />
             </Link>
           </div>
 

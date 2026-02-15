@@ -29,7 +29,7 @@ export function Footer() {
                     {/* Brand */}
                     <div className="space-y-3">
                         <Link href="/" className="font-bold text-xl">
-                            <Image src="/images/logo_oficial.png" alt="Logo" width={50} height={50} />
+                            <Image src="/images/logo_footer_2.png" alt="Logo" width={150} height={100} />
                         </Link>
                         <p className="text-sm text-muted-foreground leading-relaxed">
                             Your trusted destination for premium electronics at the best

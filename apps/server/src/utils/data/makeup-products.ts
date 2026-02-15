@@ -69,7 +69,7 @@ export const makeupProducts = [
         brandLogo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Eudora_logo.svg/200px-Eudora_logo.svg.png',
         category: 'Corretivo',
         images: [
-            'https://images.unsplash.com/photo-1599733589046-10c941f24e0e?w=600&h=600&fit=crop',
+            'https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=600&h=600&fit=crop',
         ],
         description:
             'Corretivo líquido de alta cobertura com acabamento natural. Disfarça olheiras, manchas e imperfeições. Fórmula hidratante com vitamina E que cuida da pele enquanto corrige. Longa duração de até 14 horas.',
@@ -149,7 +149,7 @@ export const makeupProducts = [
         brandLogo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Eudora_logo.svg/200px-Eudora_logo.svg.png',
         category: 'Iluminador',
         images: [
-            'https://images.unsplash.com/photo-1599733589046-10c941f24e0e?w=600&h=600&fit=crop',
+            'https://images.unsplash.com/photo-1557205465-f3762edea6d3?w=600&h=600&fit=crop',
         ],
         description:
             'Iluminador líquido com partículas douradas que proporcionam um brilho sofisticado e natural. Pode ser usado puro nos pontos altos do rosto ou misturado à base para um glow uniforme.',
