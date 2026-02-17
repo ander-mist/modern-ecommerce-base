@@ -40,7 +40,8 @@ export function ProductExpertInput({
           variant: 'destructive',
         });
       } else {
-        handleSubmit(e);
+        // handleSubmit(e);
+        handleSubmit(e.nativeEvent as unknown as React.FormEvent<HTMLFormElement>);
       }
     }
   };

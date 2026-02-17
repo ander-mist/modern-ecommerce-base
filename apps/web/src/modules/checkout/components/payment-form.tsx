@@ -16,7 +16,7 @@ import { Card } from '@/components/ui/card';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { CreditCard } from 'lucide-react';
 import { FaPaypal } from 'react-icons/fa';
-import { useCheckout } from '../context/checkout-context';
+import { useCheckout, useCheckoutGuard } from '../context/checkout-context';
 import { useRouter } from 'next/navigation';
 import { apiClient } from '@/lib/api-client';
 import { useToast } from '@/hooks/use-toast';
@@ -28,14 +28,15 @@ const formSchema = z.object({
 });
 
 export function PaymentForm() {
-  const { setPaymentMethod } = useCheckout();
+  useCheckoutGuard('payment');
+  const { paymentMethod: storedPaymentMethod, setPaymentMethod } = useCheckout();
   const router = useRouter();
   const { toast } = useToast();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      paymentMethod: 'PayPal',
+      paymentMethod: (storedPaymentMethod as 'PayPal' | 'Stripe') || 'PayPal',
     },
   });
 

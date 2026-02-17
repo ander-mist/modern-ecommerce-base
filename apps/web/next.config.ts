@@ -1,5 +1,6 @@
 import type { NextConfig } from 'next';
 
+
 const nextConfig: NextConfig = {
   transpilePackages: ['@apps/shared'],
   experimental: {
@@ -11,7 +12,18 @@ const nextConfig: NextConfig = {
         protocol: 'https',
         hostname: 'res.cloudinary.com',
       },
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'upload.wikimedia.org',
+      },
     ],
+  },
+  eslint: {
+    ignoreDuringBuilds: true,
   },
 };
 

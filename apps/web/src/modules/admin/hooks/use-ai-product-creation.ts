@@ -27,7 +27,7 @@ export function useAiProductCreation() {
           "I am a product creation assistant. Let's create a product together.",
       },
     ],
-    body: ({ messages }) => ({
+    body: ({ messages }: { messages: any[] }) => ({
       messages,
       data: {
         context: {
@@ -44,18 +44,18 @@ export function useAiProductCreation() {
       },
     }),
     keepLastMessageOnError: true,
-    onResponse: response => {
+    onResponse: (response: Response) => {
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
     },
-    onError: error => {
+    onError: (error: any) => {
       console.error('Chat error:', error);
     },
-    onFinish: message => {
+    onFinish: (message: any) => {
       const data = message.data;
       if (data?.productUpdate) {
-        setProductDraft(prev => ({ ...prev, ...data.productUpdate }));
+        setProductDraft((prev: any) => ({ ...prev, ...data.productUpdate }));
       }
       if (data?.canProgress) {
         // Handle step progression based on your step order

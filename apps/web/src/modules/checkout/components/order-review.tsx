@@ -5,7 +5,7 @@ import { Card } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useCheckout } from '../context/checkout-context';
+import { useCheckout, useCheckoutGuard } from '../context/checkout-context';
 import { useCart } from '@/modules/cart/context/cart-context';
 import { useRouter } from 'next/navigation';
 import { useToast } from '@/hooks/use-toast';
@@ -13,7 +13,8 @@ import { apiClient } from '@/lib/api-client';
 import { TAX_RATE } from '@/config/constants';
 
 export function OrderReview() {
-  const { shippingAddress: shippingDetails, paymentMethod } = useCheckout();
+  useCheckoutGuard('review');
+  const { shippingAddress: shippingDetails, paymentMethod, clearCheckout } = useCheckout();
   const { items, clearCart } = useCart();
   const router = useRouter();
   const { toast } = useToast();
@@ -47,6 +48,7 @@ export function OrderReview() {
       });
 
       await clearCart();
+      clearCheckout();
       router.push(`/orders/${response.data._id}`);
     } catch (error) {
       toast({

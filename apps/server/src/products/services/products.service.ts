@@ -7,6 +7,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
 import { UserDocument } from 'src/users/schemas/user.schema';
 import { sampleProduct } from '../../utils/data/product';
+import { makeupProducts } from '../../utils/data/makeup-products';
 import { Product, ProductDocument } from '../schemas/product.schema';
 import { PaginatedResponse } from '../../../../shared/types';
 import { Order } from '../../orders/schemas/order.schema';
@@ -16,7 +17,7 @@ export class ProductsService {
   constructor(
     @InjectModel(Product.name) private productModel: Model<Product>,
     @InjectModel(Order.name) private orderModel: Model<Order>,
-  ) {}
+  ) { }
 
   async findTopRated(): Promise<ProductDocument[]> {
     const products = await this.productModel
@@ -33,6 +34,7 @@ export class ProductsService {
     keyword?: string,
     page?: string,
     limit?: string,
+    category?: string,
   ): Promise<PaginatedResponse<Product>> {
     const pageSize = parseInt(limit ?? '10');
     const currentPage = parseInt(page ?? '1');
@@ -41,21 +43,30 @@ export class ProductsService {
 
     const searchPattern = decodedKeyword
       ? decodedKeyword
-          .split(' ')
-          .map(term => `(?=.*${term})`)
-          .join('')
+        .split(' ')
+        .map(term => `(?=.*${term})`)
+        .join('')
       : '';
 
-    const searchQuery = decodedKeyword
-      ? {
-          $or: [
-            { name: { $regex: searchPattern, $options: 'i' } },
-            { description: { $regex: searchPattern, $options: 'i' } },
-            { brand: { $regex: searchPattern, $options: 'i' } },
-            { category: { $regex: searchPattern, $options: 'i' } },
-          ],
-        }
-      : {};
+    const filters: Record<string, unknown>[] = [];
+
+    if (decodedKeyword) {
+      filters.push({
+        $or: [
+          { name: { $regex: searchPattern, $options: 'i' } },
+          { description: { $regex: searchPattern, $options: 'i' } },
+          { brand: { $regex: searchPattern, $options: 'i' } },
+          { category: { $regex: searchPattern, $options: 'i' } },
+        ],
+      });
+    }
+
+    if (category) {
+      const decodedCategory = decodeURIComponent(category);
+      filters.push({ category: { $regex: `^${decodedCategory}$`, $options: 'i' } });
+    }
+
+    const searchQuery = filters.length > 0 ? { $and: filters } : {};
 
     const count = await this.productModel.countDocuments(searchQuery);
     const products = await this.productModel
@@ -84,6 +95,10 @@ export class ProductsService {
     return product;
   }
 
+  async findDistinctCategories(): Promise<string[]> {
+    return this.productModel.distinct('category');
+  }
+
   async createMany(products: Partial<Product>[]): Promise<ProductDocument[]> {
     const createdProducts = await this.productModel.insertMany(products);
 
@@ -94,6 +109,11 @@ export class ProductsService {
     const createdProduct = await this.productModel.create(sampleProduct);
 
     return createdProduct;
+  }
+
+  async seedMakeupProducts(): Promise<ProductDocument[]> {
+    await this.productModel.deleteMany({});
+    return this.createMany(makeupProducts);
   }
 
   async update(id: string, attrs: Partial<Product>): Promise<ProductDocument> {

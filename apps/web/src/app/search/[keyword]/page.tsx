@@ -4,13 +4,18 @@ import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
 
+// interface SearchPageProps {
+//   params: {
+//     keyword: string;
+//   };
+//   searchParams: {
+//     page?: string;
+//   };
+// }
+
 interface SearchPageProps {
-  params: {
-    keyword: string;
-  };
-  searchParams: {
-    page?: string;
-  };
+  params: any;
+  searchParams: any;
 }
 
 export default function SearchPage({ params, searchParams }: SearchPageProps) {

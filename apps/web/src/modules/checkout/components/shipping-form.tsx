@@ -7,7 +7,7 @@ import { Card } from '@/components/ui/card';
 import { apiClient } from '@/lib/api-client';
 import { useToast } from '@/hooks/use-toast';
 import { useRouter } from 'next/navigation';
-import { useCheckout } from '../context/checkout-context';
+import { useCheckout, useCheckoutGuard } from '../context/checkout-context';
 import { getCountries } from '@/lib/countries';
 import {
   Select,
@@ -26,7 +26,8 @@ interface ShippingFormData {
 }
 
 export function ShippingForm() {
-  const { setShippingAddress } = useCheckout();
+  useCheckoutGuard('shipping');
+  const { shippingAddress, setShippingAddress } = useCheckout();
   const router = useRouter();
   const { toast } = useToast();
 
@@ -35,7 +36,14 @@ export function ShippingForm() {
     handleSubmit,
     formState: { errors, isSubmitting },
     control,
-  } = useForm<ShippingFormData>();
+  } = useForm<ShippingFormData>({
+    defaultValues: {
+      address: shippingAddress?.address || '',
+      city: shippingAddress?.city || '',
+      postalCode: shippingAddress?.postalCode || '',
+      country: shippingAddress?.country || '',
+    },
+  });
 
   const onSubmit = async (data: ShippingFormData) => {
     try {

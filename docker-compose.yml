@@ -1,0 +1,55 @@
+# Docker Compose for Elecshop Monorepo (Node 22 + MongoDB 8)
+
+version: '3.8'
+
+services:
+  mongo:
+    image: mongo:8
+    container_name: mongo8
+    restart: unless-stopped
+    ports:
+      - '27017:27017'
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    volumes:
+      - mongo_data:/data/db
+
+  server:
+    build:
+      context: .
+      dockerfile: ./apps/server/Dockerfile
+    container_name: elecshop-server
+    restart: unless-stopped
+    env_file:
+      - ./apps/server/.env
+    environment:
+      MONGODB_URI: mongodb://root:example@mongo:27017/
+      MONGO_USERNAME: root
+      MONGO_PASSWORD: example
+    depends_on:
+      - mongo
+    ports:
+      - '4000:4000'
+    volumes:
+      - ./apps/server:/app/apps/server
+      - /app/node_modules
+
+  web:
+    build:
+      context: .
+      dockerfile: ./apps/web/Dockerfile
+    container_name: elecshop-web
+    restart: unless-stopped
+    env_file:
+      - ./apps/web/.env
+    depends_on:
+      - server
+    ports:
+      - '3000:3000'
+    volumes:
+      - ./apps/web:/app/apps/web
+      - /app/node_modules
+
+volumes:
+  mongo_data:

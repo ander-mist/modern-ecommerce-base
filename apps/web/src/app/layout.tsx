@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { satoshi } from './fonts';
 import './globals.css';
 import { Header } from '@/components/header';
+import { Footer } from '@/components/footer';
 import { Providers } from './providers';
 import { Toaster } from '@/components/ui/toaster';
 import { AuthProvider } from '@/components/auth-provider';
@@ -10,8 +11,8 @@ import { CheckoutProvider } from '@/modules/checkout/context/checkout-context';
 import { ThemeProvider } from '@/components/theme-provider';
 
 export const metadata: Metadata = {
-  title: 'Elecshop',
-  description: 'Modern eCommerce platform',
+  title: 'Dellua Store',
+  description: 'Dellua Store - A loja oficial de maquiagem',
 };
 
 export default function RootLayout({
@@ -20,7 +21,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${satoshi.variable} antialiased min-h-screen flex flex-col`}
       >
@@ -36,6 +37,7 @@ export default function RootLayout({
                 <CheckoutProvider>
                   <Header />
                   <main className="flex-1">{children}</main>
+                  <Footer />
                   <Toaster />
                 </CheckoutProvider>
               </CartProvider>

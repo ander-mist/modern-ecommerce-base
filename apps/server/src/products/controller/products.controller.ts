@@ -34,15 +34,27 @@ export class ProductsController {
     private productsService: ProductsService,
     private appService: AppService,
     private productExpertAgent: ProductExpertAgent,
-  ) {}
+  ) { }
+
+  @Post('seed')
+  async seedProducts() {
+    const products = await this.productsService.seedMakeupProducts();
+    return { message: `Seeded ${products.length} makeup products`, count: products.length };
+  }
 
   @Get()
   getProducts(
     @Query('keyword') keyword: string,
     @Query('page') page: string,
     @Query('limit') limit: string,
+    @Query('category') category: string,
   ) {
-    return this.productsService.findMany(keyword, page, limit);
+    return this.productsService.findMany(keyword, page, limit, category);
+  }
+
+  @Get('categories')
+  getCategories() {
+    return this.productsService.findDistinctCategories();
   }
 
   @Get('topRated')
