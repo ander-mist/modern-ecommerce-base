@@ -11,8 +11,8 @@ import { CheckoutProvider } from '@/modules/checkout/context/checkout-context';
 import { ThemeProvider } from '@/components/theme-provider';
 
 export const metadata: Metadata = {
-  title: 'Delua store',
-  description: 'Modern eCommerce platform for makeup products',
+  title: 'Dellua Store',
+  description: 'Dellua Store - A loja oficial de maquiagem',
 };
 
 export default function RootLayout({

@@ -13,6 +13,10 @@ import {
 import { getVisiblePages } from '@/lib/utils';
 import { HeroSlider } from '@/components/hero-slider';
 import { CategoryGrid } from '@/components/category-grid';
+import { Bestsellers } from '@/components/bestsellers';
+import { PromoBanner } from '@/components/promo-banner';
+import { BrandStory } from '@/components/brand-story';
+import { Badge } from '@/components/ui/badge';
 
 interface HomePageProps {
   searchParams: Promise<{ page?: string }>;
@@ -29,10 +33,19 @@ export default async function Home({ searchParams }: HomePageProps) {
     <>
       {currentPage === 1 && <HeroSlider />}
       <Container className="mt-10">
-        {currentPage === 1 && <CategoryGrid />}
+        {currentPage === 1 && (
+          <>
+            <CategoryGrid />
+            <PromoBanner />
+            <Bestsellers />
+          </>
+        )}
         <div className="space-y-10 pb-10">
           <div id="products" className="flex flex-col gap-y-8 sm:px-6 lg:px-8">
-            <h1 className="text-3xl font-bold">Latest Products</h1>
+            <div className="flex flex-col gap-2 justify-center items-center">
+              <h1 className="text-3xl font-bold">Novidades</h1>
+              <Badge variant="brand">Confira nossas ofertas</Badge>
+            </div>
             <ProductGrid products={products} />
             <div className="flex justify-center mt-8">
               {pages > 1 && (
@@ -74,6 +87,7 @@ export default async function Home({ searchParams }: HomePageProps) {
             </div>
           </div>
         </div>
+        {currentPage === 1 && <BrandStory />}
       </Container>
     </>
   );

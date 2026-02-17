@@ -40,26 +40,28 @@ export function CategoryGrid() {
 
     return (
         <section className="py-10">
-            <div className="flex items-center justify-between mb-6">
-                <h2 className="text-2xl font-bold">Categorias</h2>
-                <div className="flex gap-2">
-                    <button
-                        onClick={scrollPrev}
-                        className="flex h-9 w-9 items-center justify-center rounded-full border bg-card transition-colors hover:bg-primary/10 hover:border-primary/50 disabled:opacity-30"
-                        disabled={!canScrollPrev}
-                        aria-label="Anterior"
-                    >
-                        <ChevronLeft className="h-4 w-4" />
-                    </button>
-                    <button
-                        onClick={scrollNext}
-                        className="flex h-9 w-9 items-center justify-center rounded-full border bg-card transition-colors hover:bg-primary/10 hover:border-primary/50 disabled:opacity-30"
-                        disabled={!canScrollNext}
-                        aria-label="Próximo"
-                    >
-                        <ChevronRight className="h-4 w-4" />
-                    </button>
+            <div className="flex items-center justify-center mb-6">
+                <div className="flex flex-col gap-2">
+                    <h1 className="text-2xl font-bold">Categorias</h1>
                 </div>
+            </div>
+            <div className="flex gap-2 justify-end">
+                <button
+                    onClick={scrollPrev}
+                    className="flex h-9 w-9 items-center justify-center rounded-full border bg-card transition-colors hover:bg-primary/10 hover:border-primary/50 disabled:opacity-30"
+                    disabled={!canScrollPrev}
+                    aria-label="Anterior"
+                >
+                    <ChevronLeft className="h-4 w-4" />
+                </button>
+                <button
+                    onClick={scrollNext}
+                    className="flex h-9 w-9 items-center justify-center rounded-full border bg-card transition-colors hover:bg-primary/10 hover:border-primary/50 disabled:opacity-30"
+                    disabled={!canScrollNext}
+                    aria-label="Próximo"
+                >
+                    <ChevronRight className="h-4 w-4" />
+                </button>
             </div>
 
             <div className="overflow-hidden" ref={emblaRef}>
